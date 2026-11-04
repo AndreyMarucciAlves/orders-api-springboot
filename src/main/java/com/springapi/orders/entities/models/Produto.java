@@ -1,0 +1,15 @@
+package com.springapi.orders.entities.models;
+
+/**
+ * Classe abstrata para cumprir com o requisito da atividade. O ideal seria utilizar uma
+ * tabela no banco apenas para os produtos. Com isso eu poderia adicionar, remover, editar e
+ * consultas os produtor (CRUD).
+ */
+public abstract class Produto {
+
+    /**
+     * Função para os produtos retornarem o seu nome na API, permitindo adicionar no pedido.
+     * @return nome da classe.
+     */
+    public String getName(){ return this.getClass().getSimpleName(); }
+}
