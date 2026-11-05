@@ -1,4 +1,4 @@
-package com.springapi.orders.entities.models;
+package com.springapi.orders.entities.models.cardapio;
 
 /**
  * Classe abstrata para cumprir com o requisito da atividade. O ideal seria utilizar uma

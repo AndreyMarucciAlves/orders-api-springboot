@@ -1,6 +1,5 @@
 package com.springapi.orders.web;
 
-import com.springapi.orders.entities.models.Produto;
 import com.springapi.orders.repository.ProdutoRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

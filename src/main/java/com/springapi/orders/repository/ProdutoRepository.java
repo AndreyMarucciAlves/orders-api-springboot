@@ -1,9 +1,9 @@
 package com.springapi.orders.repository;
 
-import com.springapi.orders.entities.models.Bebida;
-import com.springapi.orders.entities.models.Hamburguer;
-import com.springapi.orders.entities.models.Pizza;
-import com.springapi.orders.entities.models.Produto;
+import com.springapi.orders.entities.models.cardapio.Bebida;
+import com.springapi.orders.entities.models.cardapio.Hamburguer;
+import com.springapi.orders.entities.models.cardapio.Pizza;
+import com.springapi.orders.entities.models.cardapio.Produto;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
