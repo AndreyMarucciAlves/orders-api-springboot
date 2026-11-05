@@ -6,7 +6,7 @@ package com.springapi.orders.entities.models.cardapio;
  * consultas os produtor (CRUD).
  */
 public abstract class Produto {
-
+    private double preco;
     /**
      * Função para os produtos retornarem o seu nome na API, permitindo adicionar no pedido.
      * @return nome da classe.
