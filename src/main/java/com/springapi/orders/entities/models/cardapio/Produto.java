@@ -9,9 +9,13 @@ import lombok.Getter;
  */
 public abstract class Produto {
     @Getter
+    private final int codigo;
+
+    @Getter
     private final double preco;
 
-    protected Produto(double preco){
+    protected Produto(int codigo,double preco){
+        this.codigo = codigo;
         this.preco = preco;
     }
 
