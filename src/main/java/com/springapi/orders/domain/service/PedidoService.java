@@ -1,6 +1,6 @@
 package com.springapi.orders.domain.service;
 
-import com.springapi.orders.domain.entities.models.Pedido;
+import com.springapi.orders.domain.entities.models.pedido.Pedido;
 import com.springapi.orders.domain.entities.models.cardapio.Produto;
 import com.springapi.orders.domain.exception.ResourceNotFoundException;
 import com.springapi.orders.infrastructure.repository.PedidoRepository;

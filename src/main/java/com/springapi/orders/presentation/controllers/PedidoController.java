@@ -1,6 +1,6 @@
 package com.springapi.orders.presentation.controllers;
 
-import com.springapi.orders.domain.entities.models.Pedido;
+import com.springapi.orders.domain.entities.models.pedido.Pedido;
 import com.springapi.orders.domain.entities.models.cardapio.Produto;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;

@@ -1,4 +1,4 @@
-package com.springapi.orders.domain.entities.models;
+package com.springapi.orders.domain.entities.models.pedido;
 
 import com.springapi.orders.domain.entities.models.cardapio.Cardapio;
 import com.springapi.orders.domain.entities.models.cardapio.Produto;
@@ -42,7 +42,15 @@ public class Pedido {
                     ".\nProduto inserido: " + produto + "."
             );
 
-        this.itens.add(new ItemPedido(produto.getName(), produto.getPreco(), quantidade));
+        ItemPedido itemPedido = new ItemPedido(produto.getName(), produto.getPreco(), quantidade);
+
+        //Possivel por conta do @EqualsAndHashCode em ItemProduto
+        if(this.itens.contains(itemPedido)){
+            int index = itens.indexOf(itemPedido);
+            itens.get(index).addQuantidade(quantidade);
+        } else {
+            this.itens.add(itemPedido);
+        }
     }
 
     public double valorTotal(){
