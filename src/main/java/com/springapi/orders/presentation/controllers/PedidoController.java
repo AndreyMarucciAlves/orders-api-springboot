@@ -1,12 +1,15 @@
 package com.springapi.orders.presentation.controllers;
 
+import com.springapi.orders.domain.entities.DTOs.PedidoDto;
+import com.springapi.orders.domain.entities.DTOs.pageable.FilterPageable;
+import com.springapi.orders.domain.entities.DTOs.pageable.ResponsePagedCommon;
 import com.springapi.orders.domain.entities.models.pedido.Pedido;
 import com.springapi.orders.domain.entities.models.cardapio.Produto;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-
 import com.springapi.orders.domain.service.PedidoService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +20,11 @@ import org.springframework.web.bind.annotation.*;
 public class PedidoController {
 
     private final PedidoService service;
+
+    @GetMapping("/pedidos")
+    public ResponseEntity<ResponsePagedCommon<PedidoDto>> getPedidosPageable(@Valid FilterPageable filterPageable){
+        return ResponseEntity.ok(service.getPedidosPageable(filterPageable));
+    }
 
     @PostMapping("/iniciarPedido")
     public ResponseEntity<Pedido> iniciarPedido(){
