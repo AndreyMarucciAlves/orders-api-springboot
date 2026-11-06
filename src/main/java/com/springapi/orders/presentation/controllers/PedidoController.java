@@ -28,7 +28,7 @@ public class PedidoController {
     }
 
     @GetMapping("/pedidos/{idPedido}")
-    public ResponseEntity<Pedido> getPorId(@RequestParam Long idPedido){
+    public ResponseEntity<Pedido> getPorId(@PathVariable Long idPedido){
         return ResponseEntity.ok(service.getById(idPedido));
     }
 
@@ -46,6 +46,15 @@ public class PedidoController {
         return service.adicionarItem(idPedido, produto, quantidade);
     }
 
+    @PatchMapping("/removerItem/{idPedido}")
+    public Pedido removerItem(
+        @PathVariable Long idPedido,
+        @RequestParam Produto produto,
+        @RequestParam int quantidade
+    ){
+        return service.removerItem(idPedido, produto, quantidade);
+    }
+
     @PatchMapping("/pagar/{idPedido}")
     public Pedido pagar(
             @PathVariable Long idPedido,
@@ -53,4 +62,5 @@ public class PedidoController {
     ){
         return service.pagarPedido(idPedido, metodoPagamento);
     }
+
 }

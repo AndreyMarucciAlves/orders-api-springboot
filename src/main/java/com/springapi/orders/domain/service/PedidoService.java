@@ -67,6 +67,13 @@ public class PedidoService {
     }
 
     @Transactional
+    public Pedido removerItem(Long id, Produto produto, int quantidade){
+        Pedido pedido = this.getById(id);
+        pedido.removerItem(produto,quantidade);
+        return pedido;
+    }
+
+    @Transactional
     public Pedido pagarPedido(Long id, Pagamento metodoPagamento){
         Pedido pedido = this.getById(id);
         pedido.pagar(metodoPagamento);

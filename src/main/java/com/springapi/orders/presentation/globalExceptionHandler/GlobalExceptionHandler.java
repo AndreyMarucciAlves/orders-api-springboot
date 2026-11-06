@@ -35,6 +35,6 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(IllegalStateException.class)
     public ResponseEntity<ApiErrorResponse> handlerIllegalState(IllegalStateException exception){
-        return  buildResponse(HttpStatus.BAD_REQUEST, exception.getMessage());
+        return  buildResponse(HttpStatus.CONFLICT, exception.getMessage());
     }
 }

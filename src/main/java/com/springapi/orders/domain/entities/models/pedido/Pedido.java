@@ -50,6 +50,33 @@ public class Pedido {
         }
     }
 
+    public void removerItem(Produto produto, int quantidade){
+        if(quantidade <=0)
+            throw new IllegalArgumentException(
+                    "A quantidade de '" + produto.getName() + "' a ser removido deve ser maior que 0.");
+
+        if(this.status.equals(StatusPedido.PAGO))
+            throw new IllegalStateException(
+                    "Não foi possível remover o item '" + produto.getName() +"' do pedido porque o mesmo já foi pago.");
+
+        ItemPedido itemPedido = new ItemPedido(produto.getName(), produto.getPreco(), quantidade);
+
+        //Possivel por conta do @EqualsAndHashCode em ItemProduto
+        if(this.itens.contains(itemPedido)){
+            int index = itens.indexOf(itemPedido);
+            ItemPedido itemProcurado = this.itens.get(index);
+
+            itemProcurado.removerQuantidade(quantidade);
+
+            if(itens.get(index).getQuantidade() <= 0){
+                itens.remove(index);
+            }
+        } else {
+            throw new IllegalStateException(
+                    "Não foi possível concluir a ação porque este item '" + produto.getName() + "' não está incluso no pedido.");
+        }
+    }
+
     public double valorTotal(){
         double valorTotal = 0;
         for(ItemPedido item : this.itens){

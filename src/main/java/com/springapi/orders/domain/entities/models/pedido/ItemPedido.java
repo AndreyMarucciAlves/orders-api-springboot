@@ -17,7 +17,16 @@ public class ItemPedido {
 
     private int quantidade;
 
-    protected void addQuantidade(int quantidade){
-        this.quantidade += quantidade;
+    protected void addQuantidade(int quantidade){ this.quantidade += quantidade; }
+
+    protected void removerQuantidade(int quantidade){
+        if(this.quantidade < quantidade)
+
+            throw new IllegalArgumentException(
+                    "Não foi possível remover " + quantidade + " " + nomeProduto +
+                            " porque só tem " + this.quantidade + " adicionado ao pedido."
+            );
+
+        this.quantidade -= quantidade;
     }
 }
