@@ -38,7 +38,7 @@ public class PedidoController {
     }
 
     @PatchMapping("/adicionarItem/{idPedido}")
-    public Pedido adicionarItem(
+    public PedidoDto adicionarItem(
             @PathVariable Long idPedido,
             @RequestParam Produto produto,
             @RequestParam int quantidade
@@ -47,7 +47,7 @@ public class PedidoController {
     }
 
     @PatchMapping("/removerItem/{idPedido}")
-    public Pedido removerItem(
+    public PedidoDto removerItem(
         @PathVariable Long idPedido,
         @RequestParam Produto produto,
         @RequestParam int quantidade
@@ -56,7 +56,7 @@ public class PedidoController {
     }
 
     @PatchMapping("/pagar/{idPedido}")
-    public Pedido pagar(
+    public PedidoDto pagar(
             @PathVariable Long idPedido,
             @RequestParam Pagamento metodoPagamento
     ){

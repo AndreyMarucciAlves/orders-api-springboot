@@ -43,7 +43,8 @@ public class PedidoService {
     }
 
     private PedidoDto toDto(Pedido pedido) {
-        return new PedidoDto(pedido.getId(), pedido.getItens(), pedido.getStatus(), pedido.getMetodoPagamento());
+        return new PedidoDto(
+                pedido.getId(), pedido.getItens(), pedido.getStatus(), pedido.getMetodoPagamento(), pedido.valorTotal());
     }
 
     @Transactional(readOnly = true)
@@ -60,23 +61,23 @@ public class PedidoService {
     }
 
     @Transactional
-    public Pedido adicionarItem(Long id, Produto produto, int quantidade){
+    public PedidoDto adicionarItem(Long id, Produto produto, int quantidade){
         Pedido pedido = this.getById(id);
         pedido.adicionarItem(produto,quantidade);
-        return pedido;
+        return PedidoDto.from(pedido);
     }
 
     @Transactional
-    public Pedido removerItem(Long id, Produto produto, int quantidade){
+    public PedidoDto removerItem(Long id, Produto produto, int quantidade){
         Pedido pedido = this.getById(id);
         pedido.removerItem(produto,quantidade);
-        return pedido;
+        return PedidoDto.from(pedido);
     }
 
     @Transactional
-    public Pedido pagarPedido(Long id, Pagamento metodoPagamento){
+    public PedidoDto pagarPedido(Long id, Pagamento metodoPagamento){
         Pedido pedido = this.getById(id);
         pedido.pagar(metodoPagamento);
-        return pedido;
+        return PedidoDto.from(pedido);
     }
 }
