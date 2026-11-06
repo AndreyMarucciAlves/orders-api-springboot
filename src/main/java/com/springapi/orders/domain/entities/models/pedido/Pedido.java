@@ -3,6 +3,7 @@ package com.springapi.orders.domain.entities.models.pedido;
 import com.springapi.orders.domain.entities.models.cardapio.Cardapio;
 import com.springapi.orders.domain.entities.models.cardapio.Produto;
 import com.springapi.orders.domain.enums.StatusPedido;
+import com.springapi.orders.domain.interfaces.Pagamento;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,6 +37,9 @@ public class Pedido {
         if(quantidade <=0)
             throw new IllegalArgumentException("A quantidade de " + produto.getName() + " deve ser maior que 0.");
 
+        if(this.status.equals(StatusPedido.PAGO))
+            throw new IllegalStateException("Não foi possível adicionar itens ao pedido porque o mesmo já foi pago.");
+
         if(!Cardapio.getProdutos().contains(produto))
             throw new IllegalArgumentException(
                     "Só é possível pedir um destes produtos na lista: " + Cardapio.getProdutos() +
@@ -59,5 +63,16 @@ public class Pedido {
             valorTotal += item.getPreco() * item.getQuantidade();
         }
         return valorTotal;
+    }
+
+    public void pagar(Pagamento metodoPagamaento){
+        if(this.itens.isEmpty())
+            throw new IllegalStateException("Não foi possível concluir a ação porque a lista de itens está vazia.");
+
+        if(this.status.equals(StatusPedido.PAGO))
+            throw new IllegalStateException("O pedido já foi pago.");
+
+        this.metodoPagamento = metodoPagamaento.getClass().getSimpleName();
+        this.status = StatusPedido.PAGO;
     }
 }

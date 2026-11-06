@@ -5,17 +5,14 @@ import lombok.Getter;
 import java.util.List;
 
 public class Cardapio {
-
     /**
-     *Apesar de ferir o O do SOLID ao adicionar um produto novo pela necessidade de vir aqui e incluí-lo
-     *nesta lista, faz-se necessário para cumprir com o tópico em que se pede para o sistema ter classes que
-     *implementem produto - que é abstrato.
+     * Apesar de ferir o O do SOLID (Open/Closed), pois ao inserir um novo Produto faz-se necessário vir aqui e
+     * adicioná-lo na lista, mantive essa implementação porque o escopo da atividade preve apenas esses três Produtos.
      */
-
     @Getter
     private static final List<Produto> produtos = List.of(
+            new Bebida(),
             new Pizza(),
-            new Hamburguer(),
-            new Bebida()
+            new Hamburguer()
     );
 }

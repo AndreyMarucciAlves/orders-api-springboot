@@ -6,6 +6,7 @@ import com.springapi.orders.domain.entities.DTOs.pageable.ResponsePagedCommon;
 import com.springapi.orders.domain.entities.models.pedido.Pedido;
 import com.springapi.orders.domain.entities.models.cardapio.Produto;
 import com.springapi.orders.domain.exception.ResourceNotFoundException;
+import com.springapi.orders.domain.interfaces.Pagamento;
 import com.springapi.orders.infrastructure.repository.PedidoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -61,6 +62,13 @@ public class PedidoService {
     public Pedido adicionarItem(Long id, Produto produto, int quantidade){
         Pedido pedido = this.getById(id);
         pedido.adicionarItem(produto,quantidade);
+        return pedido;
+    }
+
+    @Transactional
+    public Pedido pagarPedido(Long id, Pagamento metodoPagamento){
+        Pedido pedido = this.getById(id);
+        pedido.pagar(metodoPagamento);
         return pedido;
     }
 }

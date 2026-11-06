@@ -5,6 +5,7 @@ import com.springapi.orders.domain.entities.DTOs.pageable.FilterPageable;
 import com.springapi.orders.domain.entities.DTOs.pageable.ResponsePagedCommon;
 import com.springapi.orders.domain.entities.models.pedido.Pedido;
 import com.springapi.orders.domain.entities.models.cardapio.Produto;
+import com.springapi.orders.domain.interfaces.Pagamento;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -39,5 +40,13 @@ public class PedidoController {
             @RequestParam int quantidade
     ){
         return service.adicionarItem(idPedido, produto, quantidade);
+    }
+
+    @PatchMapping("/pagar/{idPedido}")
+    public Pedido pagar(
+            @PathVariable Long idPedido,
+            @RequestParam Pagamento metodoPagamento
+    ){
+        return service.pagarPedido(idPedido, metodoPagamento);
     }
 }

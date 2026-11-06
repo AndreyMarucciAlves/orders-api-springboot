@@ -27,4 +27,14 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiErrorResponse> handlerResourceNotFound(ResourceNotFoundException exception){
         return buildResponse(HttpStatus.NOT_FOUND, exception.getMessage());
     }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ApiErrorResponse> handlerIllegalArgument(IllegalArgumentException exception){
+        return  buildResponse(HttpStatus.BAD_REQUEST, exception.getMessage());
+    }
+
+    @ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity<ApiErrorResponse> handlerIllegalState(IllegalStateException exception){
+        return  buildResponse(HttpStatus.BAD_REQUEST, exception.getMessage());
+    }
 }
