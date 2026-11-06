@@ -46,7 +46,8 @@ public class PedidoService {
         return new PedidoDto(pedido.getId(), pedido.getItens(), pedido.getStatus(), pedido.getMetodoPagamento());
     }
 
-    private Pedido getById(Long id) {
+    @Transactional(readOnly = true)
+    public Pedido getById(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Pedido", id));
     }

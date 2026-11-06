@@ -27,6 +27,11 @@ public class PedidoController {
         return ResponseEntity.ok(service.getPedidosPageable(filterPageable));
     }
 
+    @GetMapping("/pedidos{idPedido}")
+    public ResponseEntity<Pedido> getPorId(@RequestParam Long idPedido){
+        return ResponseEntity.ok(service.getById(idPedido));
+    }
+
     @PostMapping("/iniciarPedido")
     public ResponseEntity<Pedido> iniciarPedido(){
         return ResponseEntity.ok(service.iniciarPedido());
