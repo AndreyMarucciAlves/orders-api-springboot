@@ -1,6 +1,5 @@
 package com.springapi.orders.presentation.controllers;
 
-import com.springapi.orders.domain.entities.models.cardapio.Cardapio;
 import com.springapi.orders.domain.entities.models.cardapio.Produto;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +14,10 @@ import java.util.List;
 @AllArgsConstructor
 public class CardapioController {
 
+    private final List<Produto> Cardapio;
+
     @GetMapping("/produtos")
     public ResponseEntity<List<Produto>> getProdutos() {
-        return ResponseEntity.ok(Cardapio.getProdutos());
+        return ResponseEntity.ok(Cardapio);
     }
 }

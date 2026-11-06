@@ -1,5 +1,6 @@
 package com.springapi.orders.presentation.configuration;
 
+import com.springapi.orders.domain.entities.models.cardapio.Produto;
 import io.swagger.v3.oas.models.media.StringSchema;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
@@ -35,6 +36,26 @@ public class SwaggerConfiguration {
             if (operation.getParameters() != null) {
                 operation.getParameters().stream()
                         .filter(parametro -> parametro.getName().equals("metodoPagamento"))
+                        .forEach(parametro -> parametro.setSchema(new StringSchema()._enum(nomes)));
+            }
+            return operation;
+        };
+    }
+
+    /**
+     * Este bean permite o Open/Closed dos produtos. Basta marcá-lo como @Component que ele será adicionado
+     * automáticamente ao sistema de Pedidos.
+     * @param produtos implementações concretas da abstração de Produto
+     * @return Seleção de itens da rota PATCH /adicionarItem
+     */
+    @Bean
+    public OperationCustomizer opcoesDeProdutos(List<Produto> produtos) {
+        List<String> nomes = produtos.stream().map(Produto::getName).toList();
+
+        return (operation, handlerMethod) -> {
+            if (operation.getParameters() != null) {
+                operation.getParameters().stream()
+                        .filter(parametro -> parametro.getName().equals("produto"))
                         .forEach(parametro -> parametro.setSchema(new StringSchema()._enum(nomes)));
             }
             return operation;

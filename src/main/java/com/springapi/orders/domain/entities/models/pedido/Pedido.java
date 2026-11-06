@@ -1,6 +1,5 @@
 package com.springapi.orders.domain.entities.models.pedido;
 
-import com.springapi.orders.domain.entities.models.cardapio.Cardapio;
 import com.springapi.orders.domain.entities.models.cardapio.Produto;
 import com.springapi.orders.domain.enums.StatusPedido;
 import com.springapi.orders.domain.interfaces.Pagamento;
@@ -39,12 +38,6 @@ public class Pedido {
 
         if(this.status.equals(StatusPedido.PAGO))
             throw new IllegalStateException("Não foi possível adicionar itens ao pedido porque o mesmo já foi pago.");
-
-        if(!Cardapio.getProdutos().contains(produto))
-            throw new IllegalArgumentException(
-                    "Só é possível pedir um destes produtos na lista: " + Cardapio.getProdutos() +
-                    ".\nProduto inserido: " + produto + "."
-            );
 
         ItemPedido itemPedido = new ItemPedido(produto.getName(), produto.getPreco(), quantidade);
 

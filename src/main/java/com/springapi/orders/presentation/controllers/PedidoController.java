@@ -27,7 +27,7 @@ public class PedidoController {
         return ResponseEntity.ok(service.getPedidosPageable(filterPageable));
     }
 
-    @GetMapping("/pedidos{idPedido}")
+    @GetMapping("/pedidos/{idPedido}")
     public ResponseEntity<Pedido> getPorId(@RequestParam Long idPedido){
         return ResponseEntity.ok(service.getById(idPedido));
     }
@@ -40,7 +40,6 @@ public class PedidoController {
     @PatchMapping("/adicionarItem/{idPedido}")
     public Pedido adicionarItem(
             @PathVariable Long idPedido,
-            @Parameter(schema = @Schema(allowableValues = {"Pizza", "Hamburguer", "Bebida"}))
             @RequestParam Produto produto,
             @RequestParam int quantidade
     ){
