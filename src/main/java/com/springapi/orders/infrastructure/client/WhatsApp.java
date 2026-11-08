@@ -4,8 +4,8 @@ import com.springapi.orders.domain.interfaces.Notificacao;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SmsNotificacao implements Notificacao {
+public class WhatsApp implements Notificacao {
     public String notificar(String mensagem) {
-        return "[SMS]" + mensagem;
+        return "[WhatsApp]" + mensagem;
     }
 }
