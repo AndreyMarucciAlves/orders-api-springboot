@@ -2,5 +2,7 @@ package com.springapi.orders.domain.enums;
 
 public enum StatusPedido {
     ABERTO,
-    PAGO
+    PAGO,
+    EM_ENTREGA,
+    ENTREGUE
 }

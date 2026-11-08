@@ -1,4 +1,8 @@
 package com.springapi.orders.domain.interfaces.services;
 
-public interface NotificacaoService {
+import com.springapi.orders.domain.interfaces.Notificacao;
+
+public interface INotificacaoService {
+    String notificarCliente(Notificacao meio, String mensagem);
+    public String notificarCliente(String nomeMeio, String mensagem);
 }

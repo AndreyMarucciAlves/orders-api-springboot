@@ -1,7 +1,7 @@
 package com.springapi.orders.presentation.controllers;
 
-import com.springapi.orders.domain.entities.DTOs.PagamentoResponseDto;
-import com.springapi.orders.domain.entities.DTOs.PedidoDto;
+import com.springapi.orders.domain.entities.DTOs.pedido.PagamentoResponseDto;
+import com.springapi.orders.domain.entities.DTOs.pedido.PedidoDto;
 import com.springapi.orders.domain.entities.DTOs.pageable.FilterPageable;
 import com.springapi.orders.domain.entities.DTOs.pageable.ResponsePagedCommon;
 import com.springapi.orders.domain.entities.models.Pedido;

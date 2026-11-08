@@ -1,8 +1,8 @@
 package com.springapi.orders.domain.interfaces.services;
 
-import com.springapi.orders.domain.entities.DTOs.PedidoDto;
+import com.springapi.orders.domain.entities.DTOs.pedido.EntregaResponseDto;
 
 public interface IEntregaService {
-    PedidoDto despachar(Long id);
-    PedidoDto confirmarEntrega(Long id);
+    EntregaResponseDto despachar(Long id);
+    EntregaResponseDto confirmarEntrega(Long id);
 }

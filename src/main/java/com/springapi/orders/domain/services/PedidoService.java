@@ -1,7 +1,7 @@
 package com.springapi.orders.domain.services;
 
-import com.springapi.orders.domain.entities.DTOs.PedidoDto;
-import com.springapi.orders.domain.entities.DTOs.PagamentoResponseDto;
+import com.springapi.orders.domain.entities.DTOs.pedido.PedidoDto;
+import com.springapi.orders.domain.entities.DTOs.pedido.PagamentoResponseDto;
 import com.springapi.orders.domain.entities.DTOs.pageable.FilterPageable;
 import com.springapi.orders.domain.entities.DTOs.pageable.ResponsePagedCommon;
 import com.springapi.orders.domain.entities.models.Pedido;
@@ -9,6 +9,7 @@ import com.springapi.orders.domain.entities.cardapio.Produto;
 import com.springapi.orders.domain.exception.ResourceNotFoundException;
 import com.springapi.orders.domain.interfaces.Notificacao;
 import com.springapi.orders.domain.interfaces.Pagamento;
+import com.springapi.orders.domain.interfaces.services.INotificacaoService;
 import com.springapi.orders.domain.interfaces.services.IPedidoService;
 import com.springapi.orders.infrastructure.repository.PedidoRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,7 @@ import java.util.List;
 public class PedidoService implements IPedidoService {
 
     private final PedidoRepository repository;
-    private final NotificacaoService notificacaoService;
+    private final INotificacaoService notificacaoService;
 
     @Transactional(readOnly = true)
     @Override
@@ -49,7 +50,8 @@ public class PedidoService implements IPedidoService {
 
     private PedidoDto toDto(Pedido pedido) {
         return new PedidoDto(
-                pedido.getId(), pedido.getItens(), pedido.getStatus(), pedido.getMetodoPagamento(), pedido.valorTotal());
+                pedido.getId(), pedido.getItens(), pedido.getStatus(), pedido.getMetodoPagamento(),
+                pedido.getMeioNotificacao(),pedido.valorTotal());
     }
 
     @Transactional(readOnly = true)
@@ -88,7 +90,7 @@ public class PedidoService implements IPedidoService {
     public PagamentoResponseDto pagarPedido(Long id, Pagamento metodoPagamento, Notificacao meioNotificacao){
         Pedido pedido = this.getById(id);
 
-        pedido.marcarComoPago(metodoPagamento);
+        pedido.marcarComoPago(metodoPagamento, meioNotificacao);
         String comprovante = metodoPagamento.processarPagamento(pedido);
         String mensagem = notificacaoService.notificarCliente(
                 meioNotificacao,"Pagamento recebido. Pedido número " + id + " sendo preparado para o envio!");

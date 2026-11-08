@@ -16,7 +16,7 @@ public interface RelatorioRepository extends Repository<Pedido,Long> {
                SUM(i.quantidade) AS quantidade,
                SUM(i.preco * i.quantidade) AS receita
         FROM Pedido p JOIN p.itens i
-        WHERE p.status = "PAGO"
+        WHERE p.status <> "ABERTO"
         GROUP BY i.nomeProduto
         ORDER BY SUM(i.quantidade) DESC
     """)
@@ -26,7 +26,7 @@ public interface RelatorioRepository extends Repository<Pedido,Long> {
             SELECT p.metodoPagamento AS metodo,
                    COUNT(p) AS quantidade
             FROM Pedido p
-            WHERE p.status = "PAGO"
+            WHERE p.status <> "ABERTO"
             GROUP BY p.metodoPagamento
             ORDER BY COUNT(p) DESC
         """)
@@ -39,7 +39,7 @@ public interface RelatorioRepository extends Repository<Pedido,Long> {
                SUM(i.quantidade),
                SUM(i.preco * i.quantidade)
         FROM Pedido p JOIN p.itens i
-        WHERE p.status = "PAGO"
+        WHERE p.status <> "ABERTO"
         GROUP BY p.id, p.metodoPagamento, p.status
         ORDER BY SUM(i.preco * i.quantidade) DESC
     """)

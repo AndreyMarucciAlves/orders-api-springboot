@@ -1,4 +1,4 @@
-package com.springapi.orders.domain.entities.DTOs;
+package com.springapi.orders.domain.entities.DTOs.pedido;
 
 public record PagamentoResponseDto(
         PedidoDto pedido,
