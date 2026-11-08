@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class WhatsAppNotificacao implements Notificacao {
-    public String notificar() {
-        return "Cliente notificado via WhatsApp.";
+    public String notificar(String mensagem) {
+        return "[WhatsApp]" + mensagem;
     }
 }

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class SmsNotificacao implements Notificacao {
-    public String notificar() {
-        return "Cliente notificado via SMS.";
+    public String notificar(String mensagem) {
+        return "[SMS]" + mensagem;
     }
 }

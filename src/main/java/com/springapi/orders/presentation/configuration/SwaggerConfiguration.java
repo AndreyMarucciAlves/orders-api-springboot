@@ -64,7 +64,7 @@ public class SwaggerConfiguration {
         return (operation, handlerMethod) -> {
             if (operation.getParameters() != null) {
                 operation.getParameters().stream()
-                        .filter(parametro -> parametro.getName().equals("notificacoes"))
+                        .filter(parametro -> parametro.getName().equals("meioNotificacao"))
                         .forEach(parametro -> parametro.setSchema(new StringSchema()._enum(nomes)));
             }
             return operation;

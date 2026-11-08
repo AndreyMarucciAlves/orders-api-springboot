@@ -1,10 +1,12 @@
 package com.springapi.orders.presentation.controllers;
 
+import com.springapi.orders.domain.entities.DTOs.PagamentoResponseDto;
 import com.springapi.orders.domain.entities.DTOs.PedidoDto;
 import com.springapi.orders.domain.entities.DTOs.pageable.FilterPageable;
 import com.springapi.orders.domain.entities.DTOs.pageable.ResponsePagedCommon;
 import com.springapi.orders.domain.entities.models.Pedido;
 import com.springapi.orders.domain.entities.cardapio.Produto;
+import com.springapi.orders.domain.interfaces.Notificacao;
 import com.springapi.orders.domain.interfaces.Pagamento;
 
 import com.springapi.orders.domain.service.PedidoService;
@@ -46,8 +48,9 @@ public class PedidoController {
     }
 
     @PatchMapping("/pagar/{idPedido}")
-    public PedidoDto pagar(@PathVariable Long idPedido, @RequestParam Pagamento metodoPagamento){
-        return service.pagarPedido(idPedido, metodoPagamento);
+    public PagamentoResponseDto pagar(@PathVariable Long idPedido, @RequestParam Pagamento metodoPagamento,
+                                      @RequestParam Notificacao meioNotificacao){
+        return service.pagarPedido(idPedido, metodoPagamento, meioNotificacao);
     }
 
 }

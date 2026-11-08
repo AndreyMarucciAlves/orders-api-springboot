@@ -1,11 +1,13 @@
 package com.springapi.orders.domain.service;
 
 import com.springapi.orders.domain.entities.DTOs.PedidoDto;
+import com.springapi.orders.domain.entities.DTOs.PagamentoResponseDto;
 import com.springapi.orders.domain.entities.DTOs.pageable.FilterPageable;
 import com.springapi.orders.domain.entities.DTOs.pageable.ResponsePagedCommon;
 import com.springapi.orders.domain.entities.models.Pedido;
 import com.springapi.orders.domain.entities.cardapio.Produto;
 import com.springapi.orders.domain.exception.ResourceNotFoundException;
+import com.springapi.orders.domain.interfaces.Notificacao;
 import com.springapi.orders.domain.interfaces.Pagamento;
 import com.springapi.orders.infrastructure.repository.PedidoRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +24,7 @@ import java.util.List;
 public class PedidoService {
 
     private final PedidoRepository repository;
+    private final NotificacaoService notificacaoService;
 
     @Transactional(readOnly = true)
     public ResponsePagedCommon<PedidoDto> getPedidosPageable(FilterPageable filterPageable){
@@ -75,9 +78,12 @@ public class PedidoService {
     }
 
     @Transactional
-    public PedidoDto pagarPedido(Long id, Pagamento metodoPagamento){
+    public PagamentoResponseDto pagarPedido(Long id, Pagamento metodoPagamento, Notificacao meioNotificacao){
         Pedido pedido = this.getById(id);
         pedido.pagar(metodoPagamento);
-        return PedidoDto.from(pedido);
+        String mensagem = notificacaoService.notificarCliente(
+            meioNotificacao,"Pagamento por " + metodoPagamento.getNome() + " aprovado. Pedido número " +
+            id + " sendo preparado para o envio!");
+        return new PagamentoResponseDto(PedidoDto.from(pedido), mensagem);
     }
 }

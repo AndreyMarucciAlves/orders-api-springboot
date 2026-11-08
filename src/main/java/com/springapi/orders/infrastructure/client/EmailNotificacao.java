@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class EmailNotificacao implements Notificacao {
-    public String notificar() {
-        return "Cliente notificado no E-mail.";
+    public String notificar(String mensagem) {
+        return "[E-mail]" + mensagem;
     }
 }
