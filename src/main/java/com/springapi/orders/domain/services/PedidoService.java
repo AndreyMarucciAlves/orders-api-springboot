@@ -80,11 +80,11 @@ public class PedidoService {
     @Transactional
     public PagamentoResponseDto pagarPedido(Long id, Pagamento metodoPagamento, Notificacao meioNotificacao){
         Pedido pedido = this.getById(id);
-        pedido.pagar(metodoPagamento);
 
+        pedido.marcarComoPago(metodoPagamento);
+        String comprovante = metodoPagamento.processarPagamento(pedido);
         String mensagem = notificacaoService.notificarCliente(
                 meioNotificacao,"Pagamento recebido. Pedido número " + id + " sendo preparado para o envio!");
-        String comprovante = metodoPagamento.pagar(pedido);
 
         return new PagamentoResponseDto(PedidoDto.from(pedido), mensagem, comprovante);
     }
