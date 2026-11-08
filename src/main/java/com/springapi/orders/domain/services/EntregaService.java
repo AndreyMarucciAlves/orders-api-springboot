@@ -36,7 +36,7 @@ public class EntregaService implements IEntregaService {
         pedido.confirmarEntrega();
         String notificacao =
                 notificacaoService.notificarCliente(pedido.getMeioNotificacao(),
-                        " Pedido número " + pedido.getId() + " em recebido!");
+                        " Pedido número " + pedido.getId() + " entregue!");
         return new EntregaResponseDto(PedidoDto.from(pedido), notificacao);
     }
 

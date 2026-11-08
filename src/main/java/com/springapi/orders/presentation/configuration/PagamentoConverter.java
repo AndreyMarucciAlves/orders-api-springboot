@@ -2,7 +2,7 @@ package com.springapi.orders.presentation.configuration;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.converter.Converter;
-import com.springapi.orders.domain.interfaces.Pagamento;
+import com.springapi.orders.domain.interfaces.clients.Pagamento;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

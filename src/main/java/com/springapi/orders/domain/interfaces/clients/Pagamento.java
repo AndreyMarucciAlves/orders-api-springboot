@@ -1,4 +1,4 @@
-package com.springapi.orders.domain.interfaces;
+package com.springapi.orders.domain.interfaces.clients;
 
 import com.springapi.orders.domain.entities.models.Pedido;
 

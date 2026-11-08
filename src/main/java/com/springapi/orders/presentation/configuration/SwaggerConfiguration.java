@@ -1,7 +1,7 @@
 package com.springapi.orders.presentation.configuration;
 
 import com.springapi.orders.domain.entities.cardapio.Produto;
-import com.springapi.orders.domain.interfaces.Notificacao;
+import com.springapi.orders.domain.interfaces.clients.Notificacao;
 import io.swagger.v3.oas.models.media.StringSchema;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springdoc.core.customizers.OperationCustomizer;
 
 import java.util.List;
-import com.springapi.orders.domain.interfaces.Pagamento;
+import com.springapi.orders.domain.interfaces.clients.Pagamento;
 
 @Configuration
 public class SwaggerConfiguration {

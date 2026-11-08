@@ -4,10 +4,9 @@ import com.springapi.orders.domain.entities.DTOs.pedido.PagamentoResponseDto;
 import com.springapi.orders.domain.entities.DTOs.pedido.PedidoDto;
 import com.springapi.orders.domain.entities.DTOs.pageable.FilterPageable;
 import com.springapi.orders.domain.entities.DTOs.pageable.ResponsePagedCommon;
-import com.springapi.orders.domain.entities.models.Pedido;
 import com.springapi.orders.domain.entities.cardapio.Produto;
-import com.springapi.orders.domain.interfaces.Notificacao;
-import com.springapi.orders.domain.interfaces.Pagamento;
+import com.springapi.orders.domain.interfaces.clients.Notificacao;
+import com.springapi.orders.domain.interfaces.clients.Pagamento;
 
 import com.springapi.orders.domain.interfaces.services.IPedidoService;
 import jakarta.validation.Valid;
@@ -28,12 +27,12 @@ public class PedidoController {
     }
 
     @GetMapping("/pedidos/{idPedido}")
-    public ResponseEntity<Pedido> getPorId(@PathVariable Long idPedido){
+    public ResponseEntity<PedidoDto> getPorId(@PathVariable Long idPedido){
         return ResponseEntity.ok(service.getById(idPedido));
     }
 
     @PostMapping("/iniciarPedido")
-    public ResponseEntity<Pedido> iniciarPedido(){
+    public ResponseEntity<PedidoDto> iniciarPedido(){
         return ResponseEntity.ok(service.iniciarPedido());
     }
 

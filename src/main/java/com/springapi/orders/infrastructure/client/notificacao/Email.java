@@ -1,6 +1,6 @@
 package com.springapi.orders.infrastructure.client.notificacao;
 
-import com.springapi.orders.domain.interfaces.Notificacao;
+import com.springapi.orders.domain.interfaces.clients.Notificacao;
 import org.springframework.stereotype.Component;
 
 @Component

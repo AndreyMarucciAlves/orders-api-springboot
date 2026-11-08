@@ -2,8 +2,8 @@ package com.springapi.orders.domain.entities.models;
 
 import com.springapi.orders.domain.entities.cardapio.Produto;
 import com.springapi.orders.domain.enums.StatusPedido;
-import com.springapi.orders.domain.interfaces.Notificacao;
-import com.springapi.orders.domain.interfaces.Pagamento;
+import com.springapi.orders.domain.interfaces.clients.Notificacao;
+import com.springapi.orders.domain.interfaces.clients.Pagamento;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

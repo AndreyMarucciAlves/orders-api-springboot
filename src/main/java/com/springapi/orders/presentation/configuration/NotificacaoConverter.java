@@ -1,6 +1,6 @@
 package com.springapi.orders.presentation.configuration;
 
-import com.springapi.orders.domain.interfaces.Notificacao;
+import com.springapi.orders.domain.interfaces.clients.Notificacao;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.converter.Converter;

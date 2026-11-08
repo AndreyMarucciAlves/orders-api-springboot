@@ -88,7 +88,7 @@ Todos os caminhos abaixo partem de `src/main/java/com/springapi/orders/`.
 
 | Subtópico | Onde ver | Como funciona |
 | --- | --- | --- |
-| Criar um pedido | [`PedidoController`](src/main/java/com/springapi/orders/presentation/controllers/PedidoController.java) → `POST /pedido/iniciarPedido`<br>[`PedidoService.iniciarPedido()`](src/main/java/com/springapi/orders/domain/services/PedidoService.java#L66) | O controller só recebe a requisição; o service cria o `Pedido` e manda salvar. |
+| Criar um pedido | [`PedidoController`](src/main/java/com/springapi/orders/presentation/controllers/PedidoController.java) → `POST /pedido/iniciarPedido`<br>[`PedidoService.iniciarPedido()`](src/main/java/com/springapi/orders/domain/services/PedidoService.java#L59) | O controller só recebe a requisição; o service cria o `Pedido`, manda salvar e devolve um `PedidoDto`. |
 | Salvar um pedido | [`PedidoRepository`](src/main/java/com/springapi/orders/infrastructure/repository/PedidoRepository.java) | Única classe que fala com o banco (Spring Data JPA). As alterações feitas dentro de um `@Transactional` são gravadas automaticamente. |
 | Exibir as informações | `GET /pedido/pedidos/{id}` e `GET /pedido/pedidos` (paginado)<br>[`PedidoDto`](src/main/java/com/springapi/orders/domain/entities/DTOs/pedido/PedidoDto.java) | O DTO monta a resposta (itens, status, pagamento, notificação, valor total) sem expor regras da entidade. |
 
@@ -109,7 +109,7 @@ Cada camada tem uma responsabilidade só:
 
 | Subtópico | Onde ver |
 | --- | --- |
-| Abstração | [`domain/interfaces/Pagamento.java`](src/main/java/com/springapi/orders/domain/interfaces/Pagamento.java) |
+| Abstração | [`domain/interfaces/clients/Pagamento.java`](src/main/java/com/springapi/orders/domain/interfaces/clients/Pagamento.java) |
 | Pagamento via cartão | [`infrastructure/client/pagamentos/Cartao.java`](src/main/java/com/springapi/orders/infrastructure/client/pagamentos/Cartao.java) |
 | Pagamento via PIX | [`infrastructure/client/pagamentos/PIX.java`](src/main/java/com/springapi/orders/infrastructure/client/pagamentos/PIX.java) |
 | Pagamento via dinheiro | [`infrastructure/client/pagamentos/Dinheiro.java`](src/main/java/com/springapi/orders/infrastructure/client/pagamentos/Dinheiro.java) |
@@ -158,7 +158,7 @@ As interfaces dos services ficam em [`domain/interfaces/services/`](src/main/jav
 | Gerenciamento de pedidos | [`IPedidoService`](src/main/java/com/springapi/orders/domain/interfaces/services/IPedidoService.java) | [`PedidoService`](src/main/java/com/springapi/orders/domain/services/PedidoService.java) | [`PedidoController`](src/main/java/com/springapi/orders/presentation/controllers/PedidoController.java) |
 | Gerenciamento de entregas | [`IEntregaService`](src/main/java/com/springapi/orders/domain/interfaces/services/IEntregaService.java) | [`EntregaService`](src/main/java/com/springapi/orders/domain/services/EntregaService.java) | [`EntregaController`](src/main/java/com/springapi/orders/presentation/controllers/EntregaController.java) |
 
-Além dessas, [`Pagamento`](src/main/java/com/springapi/orders/domain/interfaces/Pagamento.java) e [`Notificacao`](src/main/java/com/springapi/orders/domain/interfaces/Notificacao.java) têm um único método cada.
+Além dessas, [`Pagamento`](src/main/java/com/springapi/orders/domain/interfaces/clients/Pagamento.java) e [`Notificacao`](src/main/java/com/springapi/orders/domain/interfaces/clients/Notificacao.java) têm um único método cada.
 
 **Como funciona:** cada interface tem só os métodos da sua funcionalidade, e cada classe implementa só a interface de que precisa. O `EntregaService` não tem nada de relatório ou de pagamento, e o `RelatorioService` não tem nada de entrega. Nenhuma classe precisa deixar método vazio ou lançar `UnsupportedOperationException`.
 
@@ -168,7 +168,7 @@ Além dessas, [`Pagamento`](src/main/java/com/springapi/orders/domain/interfaces
 
 | Subtópico | Onde ver |
 | --- | --- |
-| Abstração | [`domain/interfaces/Notificacao.java`](src/main/java/com/springapi/orders/domain/interfaces/Notificacao.java) |
+| Abstração | [`domain/interfaces/clients/Notificacao.java`](src/main/java/com/springapi/orders/domain/interfaces/clients/Notificacao.java) |
 | Email | [`infrastructure/client/notificacao/Email.java`](src/main/java/com/springapi/orders/infrastructure/client/notificacao/Email.java) |
 | SMS | [`infrastructure/client/notificacao/SMS.java`](src/main/java/com/springapi/orders/infrastructure/client/notificacao/SMS.java) |
 | WhatsApp | [`infrastructure/client/notificacao/WhatsApp.java`](src/main/java/com/springapi/orders/infrastructure/client/notificacao/WhatsApp.java) |
@@ -219,7 +219,7 @@ O envio é simulado: cada implementação devolve a mensagem formatada (por exem
 
 **Outros cuidados**
 - Arquitetura em camadas (`domain`, `infrastructure`, `presentation`) com o domínio isolado.
-- Respostas em DTOs (records) nas rotas de itens, pagamento, entrega e relatórios.
+- Todas as rotas de pedido, entrega e relatórios respondem com DTOs (records); a entidade `Pedido` nunca é exposta na API.
 - Transações explícitas, com `readOnly = true` nas consultas.
 - Preço do item gravado no momento da venda: mudar o preço no cardápio não altera pedidos antigos.
 - Listagem de pedidos com paginação e ordenação.
@@ -250,7 +250,7 @@ Com a aplicação no ar:
 | Método | Rota | Descrição |
 | --- | --- | --- |
 | GET | `/cardapio/produtos` | Lista os produtos do cardápio |
-| GET | `/metodosPagamento/metodosPagamento` | Lista os métodos de pagamento |
+| GET | `/metodosPagamento` | Lista os métodos de pagamento |
 
 ### Pedidos
 
@@ -360,7 +360,8 @@ src/main/java/com/springapi/orders
 │   │   └── models            # Pedido e ItemPedido
 │   ├── enums                 # StatusPedido
 │   ├── exception             # Exceções de domínio
-│   ├── interfaces            # Pagamento (OCP) e Notificacao (DIP)
+│   ├── interfaces
+│   │   ├── clients           # Pagamento (OCP) e Notificacao (DIP)
 │   │   └── services          # Interfaces dos services (ISP)
 │   └── services              # Casos de uso: pedido, entrega, relatório, notificação
 ├── infrastructure

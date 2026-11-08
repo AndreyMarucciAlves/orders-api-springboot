@@ -1,4 +1,4 @@
-package com.springapi.orders.domain.interfaces;
+package com.springapi.orders.domain.interfaces.clients;
 
 public interface Notificacao {
     String notificar(String mensagem);

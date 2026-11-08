@@ -1,6 +1,6 @@
 package com.springapi.orders.domain.services;
 
-import com.springapi.orders.domain.interfaces.Notificacao;
+import com.springapi.orders.domain.interfaces.clients.Notificacao;
 import com.springapi.orders.domain.interfaces.services.INotificacaoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

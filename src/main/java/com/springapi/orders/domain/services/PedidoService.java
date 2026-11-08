@@ -7,8 +7,8 @@ import com.springapi.orders.domain.entities.DTOs.pageable.ResponsePagedCommon;
 import com.springapi.orders.domain.entities.models.Pedido;
 import com.springapi.orders.domain.entities.cardapio.Produto;
 import com.springapi.orders.domain.exception.ResourceNotFoundException;
-import com.springapi.orders.domain.interfaces.Notificacao;
-import com.springapi.orders.domain.interfaces.Pagamento;
+import com.springapi.orders.domain.interfaces.clients.Notificacao;
+import com.springapi.orders.domain.interfaces.clients.Pagamento;
 import com.springapi.orders.domain.interfaces.services.INotificacaoService;
 import com.springapi.orders.domain.interfaces.services.IPedidoService;
 import com.springapi.orders.infrastructure.repository.PedidoRepository;
@@ -38,7 +38,7 @@ public class PedidoService implements IPedidoService {
                 )
         );
 
-        List<PedidoDto> listPedidosResponse = listPedidosDB.stream().map(this::toDto).toList();
+        List<PedidoDto> listPedidosResponse = listPedidosDB.stream().map(PedidoDto::from).toList();
 
         return new ResponsePagedCommon<PedidoDto>(
             listPedidosResponse,
@@ -48,31 +48,23 @@ public class PedidoService implements IPedidoService {
         );
     }
 
-    private PedidoDto toDto(Pedido pedido) {
-        return new PedidoDto(
-                pedido.getId(), pedido.getItens(), pedido.getStatus(), pedido.getMetodoPagamento(),
-                pedido.getMeioNotificacao(),pedido.valorTotal());
-    }
-
     @Transactional(readOnly = true)
     @Override
-    public Pedido getById(Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Pedido", id));
+    public PedidoDto getById(Long id) {
+        return PedidoDto.from(buscarPedido(id));
     }
 
     @Transactional
     @Override
-    public Pedido iniciarPedido(){
-        Pedido pedido = new Pedido();
-        repository.save(pedido);
-        return pedido;
+    public PedidoDto iniciarPedido(){
+        Pedido pedido = repository.save(new Pedido());
+        return PedidoDto.from(pedido);
     }
 
     @Transactional
     @Override
     public PedidoDto adicionarItem(Long id, Produto produto, int quantidade){
-        Pedido pedido = this.getById(id);
+        Pedido pedido = buscarPedido(id);
         pedido.adicionarItem(produto,quantidade);
         return PedidoDto.from(pedido);
     }
@@ -80,7 +72,7 @@ public class PedidoService implements IPedidoService {
     @Transactional
     @Override
     public PedidoDto removerItem(Long id, Produto produto, int quantidade){
-        Pedido pedido = this.getById(id);
+        Pedido pedido = buscarPedido(id);
         pedido.removerItem(produto,quantidade);
         return PedidoDto.from(pedido);
     }
@@ -88,7 +80,7 @@ public class PedidoService implements IPedidoService {
     @Transactional
     @Override
     public PagamentoResponseDto pagarPedido(Long id, Pagamento metodoPagamento, Notificacao meioNotificacao){
-        Pedido pedido = this.getById(id);
+        Pedido pedido = buscarPedido(id);
 
         pedido.marcarComoPago(metodoPagamento, meioNotificacao);
         String comprovante = metodoPagamento.processarPagamento(pedido);
@@ -96,5 +88,10 @@ public class PedidoService implements IPedidoService {
                 meioNotificacao,"Pagamento recebido. Pedido número " + id + " sendo preparado para o envio!");
 
         return new PagamentoResponseDto(PedidoDto.from(pedido), mensagem, comprovante);
+    }
+
+    private Pedido buscarPedido(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Pedido", id));
     }
 }
