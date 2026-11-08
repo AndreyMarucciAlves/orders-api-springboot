@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class Dinheiro implements Pagamento {
     @Override
-    public String pagar(Pedido pedido) {
+    public String processarPagamento(Pedido pedido) {
         return "[Dinheiro] Método de pagamento aceito! Assim que o pedido chegar receberemos o dinheiro! Valor total: "
                 + pedido.valorTotal() + ". OBS: Não trabalhamos com troco.";
     }

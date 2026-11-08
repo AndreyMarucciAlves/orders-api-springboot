@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class PIX implements Pagamento {
     @Override
-    public String pagar(Pedido pedido) {
+    public String processarPagamento(Pedido pedido) {
         return "[Pix] Pagamento aprovado! Valor total: " + pedido.valorTotal();
     }
 }

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class Boleto implements Pagamento {
 
-    public String pagar(Pedido pedido) {
+    public String processarPagamento(Pedido pedido) {
         return "[Boleto] Pagamento aprovado! Valor total do pedido: " + pedido.valorTotal();
     }
 }

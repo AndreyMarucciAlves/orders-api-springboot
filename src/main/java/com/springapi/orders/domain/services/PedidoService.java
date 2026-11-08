@@ -1,4 +1,4 @@
-package com.springapi.orders.domain.service;
+package com.springapi.orders.domain.services;
 
 import com.springapi.orders.domain.entities.DTOs.PedidoDto;
 import com.springapi.orders.domain.entities.DTOs.PagamentoResponseDto;

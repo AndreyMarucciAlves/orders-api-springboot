@@ -85,14 +85,14 @@ public class Pedido {
         return valorTotal;
     }
 
-    public void pagar(Pagamento metodoPagamaento){
+    public void marcarComoPago(Pagamento metodoPagamaento){
         if(this.itens.isEmpty())
             throw new IllegalStateException("Não foi possível concluir a ação porque a lista de itens está vazia.");
 
         if(this.status.equals(StatusPedido.PAGO))
             throw new IllegalStateException("O pedido já foi pago.");
 
-        this.metodoPagamento = metodoPagamaento.getClass().getSimpleName();
+        this.metodoPagamento = metodoPagamaento.getNome();
         this.status = StatusPedido.PAGO;
     }
 }

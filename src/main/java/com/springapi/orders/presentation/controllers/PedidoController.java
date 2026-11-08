@@ -9,7 +9,7 @@ import com.springapi.orders.domain.entities.cardapio.Produto;
 import com.springapi.orders.domain.interfaces.Notificacao;
 import com.springapi.orders.domain.interfaces.Pagamento;
 
-import com.springapi.orders.domain.service.PedidoService;
+import com.springapi.orders.domain.services.PedidoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

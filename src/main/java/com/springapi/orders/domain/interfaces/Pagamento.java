@@ -7,7 +7,7 @@ public interface Pagamento {
      * Paga um pedido.
      * @return comprovante de pagamento.
      */
-    String pagar(Pedido pedido);
+    String processarPagamento(Pedido pedido);
 
     default String getNome(){ return this.getClass().getSimpleName();}
 }
