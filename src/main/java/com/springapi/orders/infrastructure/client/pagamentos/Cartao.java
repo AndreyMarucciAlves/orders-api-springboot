@@ -1,4 +1,4 @@
-package com.springapi.orders.domain.entities.pagamentos;
+package com.springapi.orders.infrastructure.client.pagamentos;
 
 import com.springapi.orders.domain.entities.models.Pedido;
 import com.springapi.orders.domain.interfaces.Pagamento;

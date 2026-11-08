@@ -1,11 +1,11 @@
-package com.springapi.orders.infrastructure.client;
+package com.springapi.orders.infrastructure.client.notificacao;
 
 import com.springapi.orders.domain.interfaces.Notificacao;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Email implements Notificacao {
+public class SMS implements Notificacao {
     public String notificar(String mensagem) {
-        return "[E-mail]" + mensagem;
+        return "[SMS]" + mensagem;
     }
 }

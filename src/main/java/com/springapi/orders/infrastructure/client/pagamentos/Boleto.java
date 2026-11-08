@@ -1,13 +1,13 @@
-package com.springapi.orders.domain.entities.pagamentos;
+package com.springapi.orders.infrastructure.client.pagamentos;
 
 import com.springapi.orders.domain.entities.models.Pedido;
 import com.springapi.orders.domain.interfaces.Pagamento;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PIX implements Pagamento {
-    @Override
+public class Boleto implements Pagamento {
+
     public String processarPagamento(Pedido pedido) {
-        return "[Pix] Pagamento aprovado! Valor total: " + pedido.valorTotal();
+        return "[Boleto] Pagamento aprovado! Valor total do pedido: " + pedido.valorTotal();
     }
 }
