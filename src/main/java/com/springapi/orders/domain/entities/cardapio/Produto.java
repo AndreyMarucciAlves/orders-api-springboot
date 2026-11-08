@@ -1,4 +1,4 @@
-package com.springapi.orders.domain.entities.models.cardapio;
+package com.springapi.orders.domain.entities.cardapio;
 
 import lombok.Getter;
 

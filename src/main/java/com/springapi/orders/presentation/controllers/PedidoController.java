@@ -3,11 +3,9 @@ package com.springapi.orders.presentation.controllers;
 import com.springapi.orders.domain.entities.DTOs.PedidoDto;
 import com.springapi.orders.domain.entities.DTOs.pageable.FilterPageable;
 import com.springapi.orders.domain.entities.DTOs.pageable.ResponsePagedCommon;
-import com.springapi.orders.domain.entities.models.pedido.Pedido;
-import com.springapi.orders.domain.entities.models.cardapio.Produto;
+import com.springapi.orders.domain.entities.models.Pedido;
+import com.springapi.orders.domain.entities.cardapio.Produto;
 import com.springapi.orders.domain.interfaces.Pagamento;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.media.Schema;
 
 import com.springapi.orders.domain.service.PedidoService;
 import jakarta.validation.Valid;
@@ -38,28 +36,17 @@ public class PedidoController {
     }
 
     @PatchMapping("/adicionarItem/{idPedido}")
-    public PedidoDto adicionarItem(
-            @PathVariable Long idPedido,
-            @RequestParam Produto produto,
-            @RequestParam int quantidade
-    ){
+    public PedidoDto adicionarItem(@PathVariable Long idPedido, @RequestParam Produto produto, @RequestParam int quantidade){
         return service.adicionarItem(idPedido, produto, quantidade);
     }
 
     @PatchMapping("/removerItem/{idPedido}")
-    public PedidoDto removerItem(
-        @PathVariable Long idPedido,
-        @RequestParam Produto produto,
-        @RequestParam int quantidade
-    ){
+    public PedidoDto removerItem(@PathVariable Long idPedido, @RequestParam Produto produto, @RequestParam int quantidade){
         return service.removerItem(idPedido, produto, quantidade);
     }
 
     @PatchMapping("/pagar/{idPedido}")
-    public PedidoDto pagar(
-            @PathVariable Long idPedido,
-            @RequestParam Pagamento metodoPagamento
-    ){
+    public PedidoDto pagar(@PathVariable Long idPedido, @RequestParam Pagamento metodoPagamento){
         return service.pagarPedido(idPedido, metodoPagamento);
     }
 

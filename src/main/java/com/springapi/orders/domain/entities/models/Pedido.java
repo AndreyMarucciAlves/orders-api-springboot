@@ -1,6 +1,6 @@
-package com.springapi.orders.domain.entities.models.pedido;
+package com.springapi.orders.domain.entities.models;
 
-import com.springapi.orders.domain.entities.models.cardapio.Produto;
+import com.springapi.orders.domain.entities.cardapio.Produto;
 import com.springapi.orders.domain.enums.StatusPedido;
 import com.springapi.orders.domain.interfaces.Pagamento;
 import jakarta.persistence.*;

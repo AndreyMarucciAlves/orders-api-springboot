@@ -1,7 +1,7 @@
 package com.springapi.orders.domain.entities.DTOs;
 
-import com.springapi.orders.domain.entities.models.pedido.ItemPedido;
-import com.springapi.orders.domain.entities.models.pedido.Pedido;
+import com.springapi.orders.domain.entities.models.ItemPedido;
+import com.springapi.orders.domain.entities.models.Pedido;
 import com.springapi.orders.domain.enums.StatusPedido;
 
 import java.util.List;

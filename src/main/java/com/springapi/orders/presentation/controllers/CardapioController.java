@@ -1,6 +1,6 @@
 package com.springapi.orders.presentation.controllers;
 
-import com.springapi.orders.domain.entities.models.cardapio.Produto;
+import com.springapi.orders.domain.entities.cardapio.Produto;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

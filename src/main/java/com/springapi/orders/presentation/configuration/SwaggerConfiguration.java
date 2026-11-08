@@ -1,6 +1,7 @@
 package com.springapi.orders.presentation.configuration;
 
-import com.springapi.orders.domain.entities.models.cardapio.Produto;
+import com.springapi.orders.domain.entities.cardapio.Produto;
+import com.springapi.orders.domain.interfaces.Notificacao;
 import io.swagger.v3.oas.models.media.StringSchema;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
@@ -56,6 +57,20 @@ public class SwaggerConfiguration {
             if (operation.getParameters() != null) {
                 operation.getParameters().stream()
                         .filter(parametro -> parametro.getName().equals("produto"))
+                        .forEach(parametro -> parametro.setSchema(new StringSchema()._enum(nomes)));
+            }
+            return operation;
+        };
+    }
+
+    @Bean
+    public OperationCustomizer opcoesDeNotificacao(List<Notificacao> notificacoes) {
+        List<String> nomes = notificacoes.stream().map(Notificacao::getNome).toList();
+
+        return (operation, handlerMethod) -> {
+            if (operation.getParameters() != null) {
+                operation.getParameters().stream()
+                        .filter(parametro -> parametro.getName().equals("notificacoes"))
                         .forEach(parametro -> parametro.setSchema(new StringSchema()._enum(nomes)));
             }
             return operation;

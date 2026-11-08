@@ -1,6 +1,6 @@
 package com.springapi.orders.presentation.configuration;
 
-import com.springapi.orders.domain.entities.models.cardapio.Produto;
+import com.springapi.orders.domain.entities.cardapio.Produto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;

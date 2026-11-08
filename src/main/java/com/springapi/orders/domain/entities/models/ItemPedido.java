@@ -1,4 +1,4 @@
-package com.springapi.orders.domain.entities.models.pedido;
+package com.springapi.orders.domain.entities.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
