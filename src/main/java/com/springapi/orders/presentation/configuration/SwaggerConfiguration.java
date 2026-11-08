@@ -24,8 +24,8 @@ public class SwaggerConfiguration {
     }
 
     /**
-     * Este bean permite o Open/Closed dos métodos de pagamento. Basta marcá-lo como @Component que ele será adicionado
-     * automáticamente ao sistema de pagamentos.
+     * Estes bean permitem o Open/Closed dos métodos de pagamento, lista de produtos e serviçoes de notificação.
+     * Basta marcá-lo como @Component que ele será adicionado automáticamente ao sistema pelo Spring.
      * @param pagamentos métodos de pagamento do sistema
      * @return Seleção de itens da rota PATCH /pagar
      */
@@ -43,12 +43,6 @@ public class SwaggerConfiguration {
         };
     }
 
-    /**
-     * Este bean permite o Open/Closed dos produtos. Basta marcá-lo como @Component que ele será adicionado
-     * automáticamente ao sistema de Pedidos.
-     * @param produtos implementações concretas da abstração de Produto
-     * @return Seleção de itens da rota PATCH /adicionarItem
-     */
     @Bean
     public OperationCustomizer opcoesDeProdutos(List<Produto> produtos) {
         List<String> nomes = produtos.stream().map(Produto::getName).toList();
