@@ -1,10 +1,9 @@
 package com.springapi.orders.presentation.controllers;
 
-import com.springapi.orders.domain.entities.DTOs.PedidoDto;
 import com.springapi.orders.domain.entities.DTOs.relatorios.PedidoLucroDto;
 import com.springapi.orders.domain.entities.DTOs.relatorios.VendaPorMetodoPagamentoDto;
 import com.springapi.orders.domain.entities.DTOs.relatorios.VendasPorProdutoDto;
-import com.springapi.orders.domain.services.RelatorioService;
+import com.springapi.orders.domain.interfaces.services.IRelatorioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RelatorioController {
 
-    private final RelatorioService service;
+    private final IRelatorioService service;
 
     @GetMapping("/vendas-por-produto")
     public ResponseEntity<List<VendasPorProdutoDto>> getVendasPorProduto(){

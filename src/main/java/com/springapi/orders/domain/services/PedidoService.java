@@ -9,6 +9,7 @@ import com.springapi.orders.domain.entities.cardapio.Produto;
 import com.springapi.orders.domain.exception.ResourceNotFoundException;
 import com.springapi.orders.domain.interfaces.Notificacao;
 import com.springapi.orders.domain.interfaces.Pagamento;
+import com.springapi.orders.domain.interfaces.services.IPedidoService;
 import com.springapi.orders.infrastructure.repository.PedidoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -21,12 +22,13 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class PedidoService {
+public class PedidoService implements IPedidoService {
 
     private final PedidoRepository repository;
     private final NotificacaoService notificacaoService;
 
     @Transactional(readOnly = true)
+    @Override
     public ResponsePagedCommon<PedidoDto> getPedidosPageable(FilterPageable filterPageable){
         Page<Pedido> listPedidosDB = repository.findAll(
                 PageRequest.of(
@@ -51,12 +53,14 @@ public class PedidoService {
     }
 
     @Transactional(readOnly = true)
+    @Override
     public Pedido getById(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Pedido", id));
     }
 
     @Transactional
+    @Override
     public Pedido iniciarPedido(){
         Pedido pedido = new Pedido();
         repository.save(pedido);
@@ -64,6 +68,7 @@ public class PedidoService {
     }
 
     @Transactional
+    @Override
     public PedidoDto adicionarItem(Long id, Produto produto, int quantidade){
         Pedido pedido = this.getById(id);
         pedido.adicionarItem(produto,quantidade);
@@ -71,6 +76,7 @@ public class PedidoService {
     }
 
     @Transactional
+    @Override
     public PedidoDto removerItem(Long id, Produto produto, int quantidade){
         Pedido pedido = this.getById(id);
         pedido.removerItem(produto,quantidade);
@@ -78,6 +84,7 @@ public class PedidoService {
     }
 
     @Transactional
+    @Override
     public PagamentoResponseDto pagarPedido(Long id, Pagamento metodoPagamento, Notificacao meioNotificacao){
         Pedido pedido = this.getById(id);
 

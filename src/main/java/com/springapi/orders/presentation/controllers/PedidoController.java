@@ -9,7 +9,7 @@ import com.springapi.orders.domain.entities.cardapio.Produto;
 import com.springapi.orders.domain.interfaces.Notificacao;
 import com.springapi.orders.domain.interfaces.Pagamento;
 
-import com.springapi.orders.domain.services.PedidoService;
+import com.springapi.orders.domain.interfaces.services.IPedidoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class PedidoController {
 
-    private final PedidoService service;
+    private final IPedidoService service;
 
     @GetMapping("/pedidos")
     public ResponseEntity<ResponsePagedCommon<PedidoDto>> getPedidosPageable(@Valid FilterPageable filterPageable){
