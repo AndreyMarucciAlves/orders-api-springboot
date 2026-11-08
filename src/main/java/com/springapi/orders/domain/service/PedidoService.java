@@ -81,9 +81,11 @@ public class PedidoService {
     public PagamentoResponseDto pagarPedido(Long id, Pagamento metodoPagamento, Notificacao meioNotificacao){
         Pedido pedido = this.getById(id);
         pedido.pagar(metodoPagamento);
+
         String mensagem = notificacaoService.notificarCliente(
-            meioNotificacao,"Pagamento por " + metodoPagamento.getNome() + " aprovado. Pedido número " +
-            id + " sendo preparado para o envio!");
-        return new PagamentoResponseDto(PedidoDto.from(pedido), mensagem);
+                meioNotificacao,"Pagamento recebido. Pedido número " + id + " sendo preparado para o envio!");
+        String comprovante = metodoPagamento.pagar(pedido);
+
+        return new PagamentoResponseDto(PedidoDto.from(pedido), mensagem, comprovante);
     }
 }
